@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Student Assistance Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class' }
+  </script>
+  <!-- Icon set -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-950 text-gray-900 dark:text-gray-100 font-sans transition-colors duration-300">
+
+<!-- 🔐 LOGIN PAGE -->
+<div id="loginPage" 
+     class="fixed inset-0 flex items-center justify-center bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800">
+
+  <!-- 🌌 Decorative Background Elements -->
+  <div class="absolute inset-0 overflow-hidden">
+    <div class="hidden sm:block absolute w-96 h-96 bg-blue-400/30 rounded-full blur-3xl top-[-5rem] left-[-5rem] animate-pulse"></div>
+    <div class="hidden sm:block absolute w-72 h-72 bg-indigo-400/30 rounded-full blur-2xl bottom-[-4rem] right-[-4rem] animate-ping"></div>
+    <div class="hidden sm:block absolute w-40 h-40 bg-purple-500/20 rounded-full blur-2xl top-1/2 left-1/3 animate-bounce"></div>
+    <div class="absolute inset-0 bg-gradient-to-tr from-black/20 via-transparent to-white/10"></div>
+  </div>
+
+  <!-- 💳 Login Card -->
+  <div class="relative z-10 bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl 
+              text-gray-900 dark:text-gray-100 p-6 sm:p-10 rounded-3xl shadow-2xl 
+              w-full max-w-md border border-white/20 
+              max-h-[90vh] overflow-y-auto flex flex-col">
+
+    <!-- Header -->
+    <div class="text-center mb-6 sm:mb-8">
+      <div class="mx-auto w-16 h-16 flex items-center justify-center rounded-full 
+                  bg-gradient-to-tr from-blue-500 to-indigo-500 text-white shadow-md">
+        <i class="ph ph-student text-3xl"></i>
+      </div>
+      <h2 class="mt-4 text-2xl sm:text-3xl font-extrabold">Student Hub</h2>
+      <p class="text-gray-500 dark:text-gray-400 text-sm">Sign in to continue</p>
+    </div>
+
+    <!-- Form -->
+    <div class="space-y-4 sm:space-y-5 flex-1">
+      <!-- Username -->
+      <div>
+        <label for="username" class="block text-sm font-medium mb-1">Username</label>
+        <input id="username" type="text" placeholder="Enter username" 
+               class="w-full px-4 py-2.5 rounded-xl border border-gray-300 dark:border-gray-700 
+                      bg-gray-50/70 dark:bg-gray-800/70 text-gray-900 dark:text-gray-100 
+                      focus:ring-2 focus:ring-blue-500 outline-none transition" />
+      </div>
+      
+      <!-- Password -->
+      <div class="relative">
+        <label for="password" class="block text-sm font-medium mb-1">Password</label>
+        <input id="password" type="password" placeholder="Enter password" 
+               class="w-full px-4 py-2.5 pr-12 rounded-xl border border-gray-300 dark:border-gray-700 
+                      bg-gray-50/70 dark:bg-gray-800/70 text-gray-900 dark:text-gray-100 
+                      focus:ring-2 focus:ring-blue-500 outline-none transition" />
+        <button type="button" onclick="togglePassword()" 
+                class="absolute inset-y-0 right-3 flex items-center mt-6 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
+          <i id="eyeIcon" class="ph ph-eye text-lg"></i>
+        </button>
+      </div>
+
+      <!-- Remember Me + Forgot Password -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between text-sm gap-2">
+        <label class="flex items-center gap-2">
+          <input type="checkbox" class="rounded text-blue-600 focus:ring-0" />
+          Remember me
+        </label>
+        <a href="#" class="text-blue-600 hover:underline">Forgot password?</a>
+      </div>
+
+      <!-- Login Button -->
+      <button onclick="login()" 
+              class="w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 
+                     text-white font-semibold shadow-lg hover:from-blue-700 hover:to-indigo-700 
+                     transition transform hover:scale-[1.02]">
+        <i class="ph ph-lock-simple mr-2"></i> Login
+      </button>
+
+      <p id="loginError" class="text-red-500 text-sm text-center hidden">Invalid username or password</p>
+
+      <!-- Divider -->
+      <div class="flex items-center my-4">
+        <div class="flex-grow h-px bg-gray-300 dark:bg-gray-700"></div>
+        <span class="px-3 text-xs text-gray-500 dark:text-gray-400">OR</span>
+        <div class="flex-grow h-px bg-gray-300 dark:bg-gray-700"></div>
+      </div>
+
+      <!-- Alternative Login -->
+      <div class="space-y-3">
+        <button class="w-full flex items-center justify-center gap-3 py-3 rounded-xl 
+                       border border-gray-300 dark:border-gray-700 
+                       bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 
+                       font-medium shadow hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+          <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="w-5 h-5" />
+          Continue with Google
+        </button>
+        <button class="w-full flex items-center justify-center gap-3 py-3 rounded-xl 
+                       border border-gray-300 dark:border-gray-700 
+                       bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 
+                       font-medium shadow hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+          <i class="ph ph-graduation-cap text-lg text-indigo-600"></i>
+          Continue with UCC Student Portal
+        </button>
+      </div>
+
+      <!-- 📝 Prototype Note -->
+      <div class="mt-5 rounded-xl border border-yellow-400/40 bg-gradient-to-br from-yellow-50 to-yellow-100 dark:from-yellow-900/30 dark:to-yellow-800/20 p-3 sm:p-4 shadow-sm text-xs sm:text-sm">
+        <div class="flex items-start gap-3">
+          <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-yellow-400/30 text-yellow-600 dark:text-yellow-300">
+            <i class="ph ph-warning text-lg"></i>
+          </div>
+          <div class="text-gray-800 dark:text-gray-200">
+            <p class="font-semibold text-yellow-700 dark:text-yellow-300">Prototype Notice</p>
+            <p class="mt-1">Use these demo accounts:</p>
+            <ul class="mt-2 space-y-1 font-mono bg-white/60 dark:bg-gray-900/40 rounded-lg p-2">
+              <li>👨‍💻 <b>smith</b> / 1234 <span class="italic text-gray-500"> (CS)</span></li>
+              <li>👩 <b>alice</b> / abcd <span class="italic text-gray-500"> (Psychology)</span></li>
+              <li>👷 <b>bob</b> / pass <span class="italic text-gray-500"> (Engineering)</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- 🔑 Password Toggle Script -->
+<!-- 🔑 Scripts -->
+<script>
+  // Hardcoded accounts
+  const accounts = [
+    { username: "smith", password: "1234", name: "Smith Samson Jeremiah", course: "BSc Computer Science", avatar: "smith.jpeg" },
+    { username: "alice", password: "abcd", name: "Alice Johnson", course: "BA Psychology", avatar: "alice.webp" },
+    { username: "bob", password: "pass", name: "Bob Williams", course: "BEng Mechanical Engineering", avatar: "bob.jpeg" }
+  ];
+
+  let currentUser = null;
+
+  // Toggle password visibility
+  function togglePassword() {
+    const passwordField = document.getElementById("password");
+    const eyeIcon = document.getElementById("eyeIcon");
+    if (passwordField.type === "password") {
+      passwordField.type = "text";
+      eyeIcon.classList.replace("ph-eye", "ph-eye-slash");
+    } else {
+      passwordField.type = "password";
+      eyeIcon.classList.replace("ph-eye-slash", "ph-eye");
+    }
+  }
+
+  // Login function
+  function login() {
+    const uname = document.getElementById("username").value.trim().toLowerCase();
+    const pword = document.getElementById("password").value.trim();
+    const loginError = document.getElementById("loginError");
+
+    const foundAccount = accounts.find(acc => acc.username === uname && acc.password === pword);
+
+    if (foundAccount) {
+      currentUser = foundAccount;
+      localStorage.setItem("loggedInUser", JSON.stringify(foundAccount));
+
+      // Hide login page, show dashboard
+      document.getElementById("loginPage").classList.add("hidden");
+      document.getElementById("app").classList.remove("hidden");
+
+      updateProfile(foundAccount);
+      loginError.classList.add("hidden");
+    } else {
+      loginError.classList.remove("hidden");
+    }
+  }
+
+  // Logout function
+  function logout() {
+    localStorage.removeItem("loggedInUser");
+    currentUser = null;
+
+    document.getElementById("app").classList.add("hidden");
+    document.getElementById("loginPage").classList.remove("hidden");
+  }
+
+  // Update profile info on dashboard
+  function updateProfile(acc) {
+    document.getElementById("profileName").textContent = acc.name;
+    document.getElementById("profileCourse").textContent = acc.course;
+    document.getElementById("profilePic").src = acc.avatar;
+  }
+
+  // On page load, check if user is already logged in
+  window.onload = () => {
+    const saved = localStorage.getItem("loggedInUser");
+    if (saved) {
+      currentUser = JSON.parse(saved);
+      document.getElementById("loginPage").classList.add("hidden");
+      document.getElementById("app").classList.remove("hidden");
+      updateProfile(currentUser);
+    }
+  };
+</script>
+
+
+
+<div id="app" class="hidden">
+  <div class="flex min-h-screen">
+
+    <!-- 🌟 Sidebar -->
+<aside class="w-72 bg-gradient-to-b from-blue-700 via-blue-800 to-blue-900 
+dark:from-blue-950 dark:to-black text-white flex flex-col shadow-2xl">
+
+<!-- Branding -->
+<div class="flex items-center gap-3 p-6 border-b border-blue-600/40 dark:border-blue-800/40">
+<div class="w-11 h-11 flex items-center justify-center bg-white/20 rounded-full shadow-md">
+<i class="ph ph-student text-2xl"></i>
+</div>
+<div>
+<h1 class="text-xl font-extrabold tracking-tight">Study Buddy</h1>
+<p class="text-xs text-blue-200">Your academic companion</p>
+</div>
+</div>
+
+<!-- Profile Card -->
+<div class="flex items-center gap-4 p-5 border-b border-blue-600/40 dark:border-blue-800/40">
+  <img id="profilePic" 
+       src="https://i.pravatar.cc/100?img=3" 
+       class="w-12 h-12 rounded-full border-2 border-white/40 shadow-lg ring-2 ring-blue-400/30" />
+  <div>
+    <p id="profileName" class="font-semibold text-sm">Guest User</p>
+    <p id="profileCourse" class="text-[12px] text-blue-200">Not logged in</p>
+  </div>
+</div>
+
+
+<!-- Navigation -->
+<nav class="flex-grow px-4 py-5">
+<ul class="space-y-1.5">
+  <li>
+    <button onclick="showSection('dashboardPage')" id="nav-dashboard"
+       class="nav-item flex items-center gap-3 px-4 py-2 rounded-lg w-full text-left 
+              transition hover:bg-blue-600/40">
+      <i class="ph ph-house text-lg"></i>
+      <span class="font-medium">Dashboard</span>
+    </button>
+  </li>
+  
+<li>
+<button onclick="showSection('timetable')" id="nav-timetable" 
+   class="nav-item active flex items-center gap-3 px-4 py-2 rounded-lg w-full text-left 
+          transition hover:bg-blue-600/40">
+<i class="ph ph-calendar text-lg"></i>
+<span class="font-medium">Time Table</span>
+</button>
+</li>
+<li>
+<button onclick="showSection('chat')" id="nav-chat" 
+   class="nav-item flex items-center gap-3 px-4 py-2 rounded-lg w-full text-left 
+          transition hover:bg-blue-600/40">
+<i class="ph ph-chats text-lg"></i>
+<span class="font-medium">Chat</span>
+</button>
+</li>
+<li>
+<button onclick="showSection('gpa')" id="nav-cgpa" 
+   class="nav-item flex items-center gap-3 px-4 py-2 rounded-lg w-full text-left 
+          transition hover:bg-blue-600/40">
+<i class="ph ph-chart-bar text-lg"></i>
+<span class="font-medium">GPA Calculator</span>
+</button>
+</li>
+<li>
+<button onclick="showSection('plan')" id="nav-plan" 
+   class="nav-item flex items-center gap-3 px-4 py-2 rounded-lg w-full text-left 
+          transition hover:bg-blue-600/40">
+<i class="ph ph-target text-lg"></i>
+<span class="font-medium">Calculate CGPA</span>
+</button>
+</li>
+<li>
+  <button onclick="showSection('targetcgpa')" id="nav-targetcgpa" 
+     class="nav-item flex items-center gap-3 px-4 py-2 rounded-lg w-full text-left 
+            transition hover:bg-blue-600/40">
+    <i class="ph ph-chart-bar text-lg"></i>
+    <span class="font-medium">Target your GPA</span>
+  </button>
+</li>
+
+</ul>
+</nav>
+
+<!-- Footer -->
+<div class="p-5 border-t border-blue-600/40 dark:border-blue-800/40 space-y-3">
+<!-- Dark Mode -->
+<button onclick="toggleDarkMode()" 
+class="w-full flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-blue-600/30 
+      dark:hover:bg-blue-800/50 transition">
+<i id="darkModeIcon" class="ph ph-moon"></i> 
+<span class="font-medium">Dark Mode</span>
+</button>
+
+<!-- Logout -->
+<ul>
+<li>
+  <button onclick="logout()" 
+          class="w-full flex items-center gap-2 px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 transition">
+    <i class="ph ph-sign-out"></i> Logout
+  </button>
+</li>
+</ul>
+
+<!-- Copyright -->
+<p class="text-[11px] text-blue-200/70 text-center pt-2">© 2025 Study Buddy</p>
+</div>
+</aside>
+
+
+    <!-- Main content -->
+    <main class="flex-grow p-6 md:p-10 space-y-10 bg-transparent">
+
+<!-- 🌟 dashboardPage -->
+<section id="dashboardPage" class="glass-card">
+  <!-- Title -->
+  <h2 class="card-title flex items-center gap-2">
+    <i class="ph ph-house"></i>
+    dashboard
+  </h2>
+
+  <!-- Grid of cards -->
+  <div class="grid md:grid-cols-3 gap-6 mt-4">
+    
+    <!-- 📅 Today’s Classes -->
+    <div class="stat-card p-5 rounded-2xl shadow-md bg-gradient-to-br from-blue-50 to-white 
+                dark:from-slate-800 dark:to-slate-900 border border-blue-100/40 dark:border-slate-700/40">
+      <div class="flex items-center gap-3 text-blue-700 dark:text-blue-400">
+        <i class="ph ph-calendar-check text-2xl"></i>
+        <h3 class="font-semibold text-lg">Today’s Classes</h3>
+      </div>
+      <ul class="mt-3 text-sm leading-7 text-gray-700 dark:text-gray-300">
+        <li>9–11 AM — Mathematics</li>
+        <li>11–1 PM — Physics</li>
+        <li>2–4 PM — Computer Science</li>
+      </ul>
+    </div>
+
+<!-- 🎓 GPA Summary -->
+<div class="stat-card p-5 rounded-2xl shadow-md bg-gradient-to-br from-purple-50 to-white 
+            dark:from-slate-800 dark:to-slate-900 border border-purple-100/40 dark:border-slate-700/40">
+  <div class="flex items-center gap-3 text-purple-700 dark:text-purple-400">
+    <i class="ph ph-graduation-cap text-2xl"></i>
+    <h3 class="font-semibold text-lg">YOUR CGPA IS:</h3>
+  </div>
+  <p class="mt-4">
+    <span id="currentCgpa" class="text-4xl font-extrabold text-purple-700 dark:text-purple-400">0.00</span>
+    <span class="text-sm ml-1 text-gray-600 dark:text-gray-400">CGPA</span>
+  </p>
+  <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+    Overall Grade: <span id="currentGrade" class="font-semibold">-</span>
+  </p>
+</div>
+
+
+    <!-- 💬 Messages -->
+    <div class="stat-card p-5 rounded-2xl shadow-md bg-gradient-to-br from-green-50 to-white 
+                dark:from-slate-800 dark:to-slate-900 border border-green-100/40 dark:border-slate-700/40">
+      <div class="flex items-center gap-3 text-green-700 dark:text-green-400">
+        <i class="ph ph-chats text-2xl"></i>
+        <h3 class="font-semibold text-lg">Messages</h3>
+      </div>
+      <p class="mt-4 text-sm text-gray-700 dark:text-gray-300">
+        3 unread in <span class="font-semibold">Study Group</span>
+      </p>
+      <button onclick="showSection('chat')" 
+              class="btn-blue mt-4 inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm shadow">
+        Open Chat <i class="ph ph-arrow-right"></i>
+      </button>
+    </div>
+
+    <!-- 📊 Performance Overview -->
+    <div class="stat-card p-5 rounded-2xl shadow-md bg-gradient-to-br from-yellow-50 to-white 
+                dark:from-slate-800 dark:to-slate-900 border border-yellow-100/40 dark:border-slate-700/40 md:col-span-2">
+      <div class="flex items-center gap-3 text-yellow-700 dark:text-yellow-400">
+        <i class="ph ph-chart-line text-2xl"></i>
+        <h3 class="font-semibold text-lg">Performance Overview</h3>
+      </div>
+      <div class="mt-4 space-y-3 text-sm">
+        <div>
+          <p class="flex justify-between"><span>Mathematics</span><span>85%</span></p>
+          <div class="w-full h-2 bg-gray-200 dark:bg-slate-700 rounded-full overflow-hidden">
+            <div class="h-2 bg-yellow-500 w-[85%]"></div>
+          </div>
+        </div>
+        <div>
+          <p class="flex justify-between"><span>Physics</span><span>72%</span></p>
+          <div class="w-full h-2 bg-gray-200 dark:bg-slate-700 rounded-full overflow-hidden">
+            <div class="h-2 bg-yellow-500 w-[72%]"></div>
+          </div>
+        </div>
+        <div>
+          <p class="flex justify-between"><span>Computer Science</span><span>90%</span></p>
+          <div class="w-full h-2 bg-gray-200 dark:bg-slate-700 rounded-full overflow-hidden">
+            <div class="h-2 bg-yellow-500 w-[90%]"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 📅 Upcoming Events -->
+    <div class="stat-card p-5 rounded-2xl shadow-md bg-gradient-to-br from-pink-50 to-white 
+                dark:from-slate-800 dark:to-slate-900 border border-pink-100/40 dark:border-slate-700/40">
+      <div class="flex items-center gap-3 text-pink-700 dark:text-pink-400">
+        <i class="ph ph-calendar text-2xl"></i>
+        <h3 class="font-semibold text-lg">Upcoming Events</h3>
+      </div>
+      <ul class="mt-4 text-sm space-y-2 text-gray-700 dark:text-gray-300">
+        <li>📘 Assignment 3 — <span class="text-blue-600">20 Aug</span></li>
+        <li>🧪 Physics Lab Test — <span class="text-blue-600">23 Aug</span></li>
+        <li>📝 Mid-Sem Exams — <span class="text-blue-600">1 Sep</span></li>
+      </ul>
+    </div>
+
+    <!-- 📘 Study Resources -->
+    <div class="stat-card p-5 rounded-2xl shadow-md bg-gradient-to-br from-teal-50 to-white 
+                dark:from-slate-800 dark:to-slate-900 border border-teal-100/40 dark:border-slate-700/40">
+      <div class="flex items-center gap-3 text-teal-700 dark:text-teal-400">
+        <i class="ph ph-book-open text-2xl"></i>
+        <h3 class="font-semibold text-lg">Study Resources</h3>
+      </div>
+      <ul class="mt-4 text-sm space-y-2 text-blue-600 dark:text-teal-300">
+        <li><a href="#" class="hover:underline">📄 Math Notes (PDF)</a></li>
+        <li><a href="#" class="hover:underline">💻 CS Practice Questions</a></li>
+        <li><a href="#" class="hover:underline">🎥 Physics Lecture Recording</a></li>
+      </ul>
+    </div>
+
+    <!-- ⚡ Quick Actions -->
+    <div class="stat-card p-5 rounded-2xl shadow-md bg-gradient-to-br from-gray-50 to-white 
+                dark:from-slate-800 dark:to-slate-900 border border-gray-100/40 dark:border-slate-700/40">
+      <div class="flex items-center gap-3 text-gray-700 dark:text-gray-300">
+        <i class="ph ph-lightning text-2xl"></i>
+        <h3 class="font-semibold text-lg">Quick Actions</h3>
+      </div>
+      <div class="mt-4 flex flex-col gap-2">
+        <button onclick="showSection('cgpa')" class="btn-blue">📊 Calculate CGPA</button>
+        <button onclick="showSection('plan')" class="btn-green">🎯 Plan Targets</button>
+        <button onclick="showSection('timetable')" class="btn-gray">🗓 View Timetable</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+      <!-- 🌟 TIME TABLE -->
+<section id="timetable" class="glass-card hidden">
+  <h2 class="card-title">
+    <i class="ph ph-calendar"></i> Weekly Time Table
+  </h2>
+
+  <div class="overflow-x-auto">
+    <table class="min-w-[640px] w-full border-collapse rounded-2xl overflow-hidden shadow-md">
+      <thead>
+        <tr class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white text-sm uppercase tracking-wide">
+          <th class="p-3">Day</th>
+          <th class="p-3">9–11 AM</th>
+          <th class="p-3">11–1 PM</th>
+          <th class="p-3">2–4 PM</th>
+        </tr>
+      </thead>
+      <tbody class="[&_td]:p-3 text-sm font-medium">
+        <tr class="hover:bg-indigo-50/80 dark:hover:bg-gray-800/40 transition">
+          <td class="font-semibold">Monday</td>
+          <td>Mathematics</td>
+          <td>Physics</td>
+          <td>Computer Science</td>
+        </tr>
+        <tr class="bg-gray-50/70 dark:bg-gray-900/30 hover:bg-indigo-50/80 dark:hover:bg-gray-800/40 transition">
+          <td class="font-semibold">Tuesday</td>
+          <td>English</td>
+          <td>Chemistry</td>
+          <td>Programming</td>
+        </tr>
+        <tr class="hover:bg-indigo-50/80 dark:hover:bg-gray-800/40 transition">
+          <td class="font-semibold">Wednesday</td>
+          <td>Mathematics</td>
+          <td>Electronics</td>
+          <td>Data Structures</td>
+        </tr>
+        <tr class="bg-gray-50/70 dark:bg-gray-900/30 hover:bg-indigo-50/80 dark:hover:bg-gray-800/40 transition">
+          <td class="font-semibold">Thursday</td>
+          <td>Linear Algebra</td>
+          <td>Discrete Math</td>
+          <td class="text-gray-400 italic">Free</td>
+        </tr>
+        <tr class="hover:bg-indigo-50/80 dark:hover:bg-gray-800/40 transition">
+          <td class="font-semibold">Friday</td>
+          <td>Operating Systems</td>
+          <td>Databases</td>
+          <td>Lab</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+      <!-- 💬 CHAT -->
+<!-- 💬 Student Chat -->
+<section id="chat" class="glass-card hidden">
+  <h2 class="card-title flex items-center gap-2">
+    <i class="ph ph-chats"></i> Student Chat
+  </h2>
+
+  <!-- Chat Box -->
+  <div id="chatBox"
+       class="h-80 overflow-y-auto border rounded-2xl p-4 mb-4 
+              bg-gradient-to-br from-white/50 to-white/30 
+              dark:from-gray-800/40 dark:to-gray-900/30 
+              space-y-4 backdrop-blur-md shadow-inner">
+
+    <!-- Example messages -->
+    <div class="flex items-start space-x-2">
+      <div class="w-8 h-8 rounded-full bg-indigo-500 text-white flex items-center justify-center text-xs font-bold">A</div>
+      <div>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mb-1">Alice</p>
+        <div class="chat-bubble other">Hey, did you complete the assignment?</div>
+        <span class="text-[10px] text-gray-400">09:20</span>
+      </div>
+    </div>
+
+    <div class="flex items-start space-x-2">
+      <div class="w-8 h-8 rounded-full bg-pink-500 text-white flex items-center justify-center text-xs font-bold">B</div>
+      <div>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mb-1">Bob</p>
+        <div class="chat-bubble other">Not yet, planning to finish tonight.</div>
+        <span class="text-[10px] text-gray-400">09:25</span>
+      </div>
+    </div>
+
+    <div class="flex items-start space-x-2">
+      <div class="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center text-xs font-bold">C</div>
+      <div>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mb-1">Charlie</p>
+        <div class="chat-bubble other">Anyone up for a study group tomorrow?</div>
+        <span class="text-[10px] text-gray-400">09:30</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Input + Tools -->
+  <div class="flex items-center border rounded-xl overflow-hidden bg-white/60 dark:bg-gray-800/60 shadow-sm">
+    <input id="chatInput" type="text" placeholder="Type a message..."
+           class="flex-grow px-4 py-3 bg-transparent outline-none text-sm 
+                  placeholder-gray-400 dark:placeholder-gray-500" />
+
+    <!-- File Upload -->
+    <label class="cursor-pointer px-3 text-gray-500 hover:text-blue-600">
+      <i class="ph ph-paperclip text-lg"></i>
+      <input type="file" id="fileInput" class="hidden" onchange="shareFile(event)" />
+    </label>
+
+    <!-- Send -->
+    <button onclick="sendMessage()"
+            class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-3 
+                   hover:from-blue-700 hover:to-indigo-700 transition font-semibold">
+      Send
+    </button>
+  </div>
+</section>
+
+
+<!-- 🌟 GPA CALCULATOR (PER SEMESTER) -->
+<section id="gpa" class="glass-card hidden">
+  <!-- Header -->
+  <h2 class="card-title flex items-center gap-2">
+    <i class="ph ph-chart-bar"></i> GPA Calculator
+  </h2>
+  <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+    Create a semester → Add courses + grades → Calculate GPA.  
+    Saved semesters will appear in the <span class="font-semibold">CGPA Planner</span>.
+  </p>
+
+  <!-- Create Semester -->
+  <div class="mb-6">
+    <div class="flex flex-wrap gap-3">
+      <input id="semesterName" type="text" 
+             placeholder="Semester Name (eg. Level 200 - First)" 
+             class="px-4 py-2 border rounded-lg flex-1 focus:ring focus:ring-blue-300"/>
+      <button onclick="addSemester()" 
+              class="px-4 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-white font-semibold 
+                     flex items-center gap-2 shadow-md transition">
+        <i class="ph ph-plus"></i> Create Semester
+      </button>
+    </div>
+
+    <!-- Semester cards will appear below -->
+    <div id="semesters" class="mt-6 space-y-6"></div>
+  </div>
+
+  <!-- Courses Section -->
+  <div id="semesterArea" class="hidden">
+    <!-- Table Header -->
+    <div class="hidden md:grid grid-cols-12 gap-2 font-semibold text-xs uppercase tracking-wide 
+                text-gray-500 dark:text-gray-400 mb-3 px-2">
+      <div class="col-span-5">Course</div>
+      <div class="col-span-2 text-center">Credits</div>
+      <div class="col-span-3 text-center">Grade (A–F)</div>
+      <div class="col-span-2 text-center">Points</div>
+    </div>
+
+    <!-- Dynamic rows -->
+    <div id="courses" class="space-y-3"></div>
+
+    <!-- Controls -->
+    <div class="mt-6 flex flex-wrap gap-3">
+      <button onclick="addCourse()" 
+              class="px-4 py-2 rounded-lg bg-green-500 hover:bg-green-600 text-white font-semibold 
+                     flex items-center gap-2 shadow-md transition">
+        <i class="ph ph-plus"></i> Add Course
+      </button>
+      <button onclick="calculateGPA()" 
+              class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold 
+                     flex items-center gap-2 shadow-md transition">
+        <i class="ph ph-calculator"></i> Calculate GPA
+      </button>
+      <button onclick="clearCourses()" 
+              class="px-4 py-2 rounded-lg bg-gray-400 hover:bg-gray-500 text-white font-semibold 
+                     flex items-center gap-2 shadow-md transition">
+        <i class="ph ph-trash"></i> Clear
+      </button>
+    </div>
+
+    <!-- Results Card -->
+    <div id="result" class="mt-8 hidden">
+      <div class="p-6 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 
+                  text-white shadow-lg relative overflow-hidden">
+        <div class="absolute -top-10 -right-10 w-40 h-40 bg-white/20 rounded-full blur-2xl"></div>
+        
+        <h3 class="text-xl font-bold relative z-10">Your Semester GPA</h3>
+        <p id="gpaValue" class="text-4xl font-extrabold mt-2 relative z-10"></p>
+        <p id="gpaGrade" class="opacity-90 mt-1 relative z-10"></p>
+
+        <!-- Progress bar -->
+        <div class="w-full bg-white/30 rounded-full h-3 mt-5 overflow-hidden relative z-10">
+          <div id="gpaBar" 
+               class="h-3 bg-yellow-300 rounded-full transition-all duration-700 ease-out"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grading Info -->
+  <p class="text-xs text-gray-600 dark:text-gray-400 mt-6 leading-relaxed">
+    <span class="font-semibold">Grading Scale:</span>  
+    A (4.0), B+ (3.5), B (3.0), C+ (2.5), C (2.0), D+ (1.5), D (1.0), F (0.0)
+  </p>
+</section>
+
+
+
+
+<!-- 🌟 CGPA PLANNER -->
+<section id="plan" class="glass-card hidden relative overflow-hidden">
+  <!-- Background Glow -->
+  <div class="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-green-500/5 to-purple-500/5 rounded-3xl blur-2xl"></div>
+
+  <!-- Header -->
+  <div class="relative z-10">
+    <h2 class="card-title flex items-center gap-2">
+      <i class="ph ph-target"></i> calculate CGPA
+    </h2>
+    <p class="mb-4 text-gray-600 dark:text-gray-400 leading-relaxed">
+      Semester GPAs you create will appear here. Add them up to calculate your 
+      <span class="font-semibold">Cumulative CGPA</span>.
+    </p>
+  </div>
+
+  <!-- Table Header -->
+  <div class="hidden md:grid grid-cols-12 gap-2 font-semibold text-xs uppercase tracking-wide 
+              text-gray-500 dark:text-gray-400 mb-3 px-2 relative z-10">
+    <div class="col-span-6">Semester</div>
+    <div class="col-span-3 text-center">Credits</div>
+    <div class="col-span-3 text-center">GPA</div>
+  </div>
+
+  <!-- Dynamic Rows -->
+  <div id="cgpaSemesters" class="space-y-3 relative z-10"></div>
+  <!-- rows injected by JS -->
+
+  <!-- Results + Progress Circle -->
+  <div class="flex flex-col md:flex-row items-center justify-between gap-6 mt-8 relative z-10">
+    <!-- Results -->
+    <div id="cgpaResult" class="flex-1"></div>
+
+    <!-- Progress Circle -->
+    <div id="planProgress" class="hidden flex justify-center">
+      <div class="relative w-44 h-44">
+        <svg class="w-full h-full transform -rotate-90">
+          <circle cx="88" cy="88" r="74" stroke="gray" stroke-width="12" 
+                  fill="transparent" class="opacity-20"></circle>
+          <circle id="progressCircle" cx="88" cy="88" r="74" 
+                  stroke="url(#grad)" stroke-width="12" fill="transparent"
+                  stroke-dasharray="465" stroke-dashoffset="465" stroke-linecap="round"
+                  class="transition-all duration-700 ease-out"></circle>
+          <defs>
+            <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#2563eb"/>
+              <stop offset="100%" stop-color="#16a34a"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="absolute inset-0 flex flex-col items-center justify-center">
+          <p class="text-xs text-gray-400">CGPA</p>
+          <p id="progressValue" class="text-2xl font-extrabold text-blue-600 dark:text-green-400">0.00</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="flex justify-end mt-6 relative z-10">
+    <button onclick="calculateCGPA()" 
+            class="px-5 py-2.5 bg-gradient-to-r from-blue-500 to-green-500 
+                   text-white font-medium rounded-xl shadow-md hover:scale-105 
+                   transform transition">
+      <i class="ph ph-calculator"></i> Calculate CGPA
+    </button>
+  </div>
+</section>
+
+<!-- 🎯 Plan Your Target CGPA -->
+<section id="targetcgpa" class="glass-card hidden relative overflow-hidden">
+  <div class="mt-10 p-6 rounded-2xl shadow-md bg-gradient-to-br from-blue-50 to-white 
+              dark:from-slate-800 dark:to-slate-900 border border-blue-100/40 dark:border-slate-700/40">
+
+    <!-- Header -->
+    <div class="flex items-center gap-3 text-blue-600 dark:text-blue-400 mb-4">
+      <i class="ph ph-target text-2xl"></i>
+      <h3 class="font-semibold text-lg">Plan Your Target GPA</h3>
+    </div>
+
+    <!-- Input for Target CGPA -->
+    <div class="flex flex-wrap gap-3 items-center mb-6">
+      <label for="targetCgpaInput" 
+             class="text-sm font-medium text-gray-700 dark:text-gray-300">🎯 Enter Target GPA:</label>
+      <input id="targetCgpaInput" type="number" min="0" max="4" step="0.01" 
+             placeholder="e.g. 3.50"
+             class="w-32 p-2 rounded-lg border dark:bg-slate-800 dark:border-slate-600">
+      <button onclick="setTargetCgpa()" 
+              class="px-4 py-2 bg-blue-500 text-white rounded-lg shadow hover:scale-105 transition">
+        Set Target
+      </button>
+    </div>
+
+    <!-- Course Planning Table -->
+    <div id="planCourses" class="space-y-3"></div>
+
+    <!-- Add Course Button -->
+    <button onclick="addPlannedCourse()" 
+            class="mt-4 px-5 py-2 bg-green-500 text-white rounded-xl shadow hover:scale-105 transition">
+      <i class="ph ph-plus"></i> Add Planned Course
+    </button>
+
+    <!-- Results -->
+    <div id="planResult" 
+         class="mt-6 hidden p-4 rounded-xl bg-blue-100 dark:bg-slate-700/60 text-gray-800 dark:text-gray-100"></div>
+  </div>
+</section>
+
+
+<script>
+    //cgpa suff
+    const gradePoints = {
+  "A": 4.0, "B+": 3.5, "B": 3.0,
+  "C+": 2.5, "C": 2.0, "D+": 1.5,
+  "D": 1.0, "E": 0.5, "F": 0.0
+};
+
+let semesters = []; // global store
+
+// =============== GPA SECTION ===============
+
+function addSemester() {
+  const container = document.getElementById("semesters");
+  const semDiv = document.createElement("div");
+  semDiv.className = "bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-md mb-6";
+
+  const semId = "sem" + Date.now(); // unique id
+
+  semDiv.id = semId + "_box"; // store div id for removal
+
+  semDiv.innerHTML = `
+    <div class="flex justify-between items-center">
+      <h3 class="text-lg font-bold text-gray-700 dark:text-gray-200">
+        Semester: <input type="text" placeholder="e.g. L100 First"
+          class="border rounded px-2 py-1" id="${semId}_name">
+      </h3>
+      <button onclick="deleteSemester('${semId}')" 
+        class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600">
+        ❌ Delete
+      </button>
+    </div>
+
+    <div id="${semId}_courses" class="space-y-2 mt-3"></div>
+
+    <button onclick="addCourse('${semId}_courses')" 
+      class="bg-blue-500 text-white px-3 py-1 rounded mt-2">+ Add Course</button>
+
+    <button onclick="calculateSemesterGPA('${semId}')" 
+      class="bg-green-500 text-white px-3 py-1 rounded mt-2">Calculate GPA</button>
+
+    <p id="${semId}_result" class="mt-3 font-semibold text-gray-700 dark:text-gray-200"></p>
+  `;
+
+  container.appendChild(semDiv);
+}
+
+function addCourse(containerId) {
+  const container = document.getElementById(containerId);
+  const row = document.createElement("div");
+  row.className = "grid grid-cols-12 gap-2 items-center";
+
+  row.innerHTML = `
+    <input type="text" placeholder="Course" 
+           class="col-span-5 p-1 border rounded"/>
+    <input type="number" min="1" placeholder="Credits" 
+           class="col-span-3 p-1 border rounded"/>
+    <select class="col-span-2 p-1 border rounded">
+      ${Object.keys(gradePoints).map(g => `<option value="${g}">${g}</option>`).join("")}
+    </select>
+  `;
+
+  container.appendChild(row);
+}
+
+function calculateSemesterGPA(semId) {
+  const name = document.getElementById(semId + "_name").value || "Unnamed";
+  const rows = document.getElementById(semId + "_courses").children;
+
+  let totalCredits = 0, totalPoints = 0;
+
+  Array.from(rows).forEach(row => {
+    const credits = parseFloat(row.children[1].value) || 0;
+    const grade = row.children[2].value;
+    const points = credits * (gradePoints[grade] || 0);
+    totalCredits += credits;
+    totalPoints += points;
+  });
+
+  if (totalCredits === 0) {
+    alert("Add courses with credits before calculating GPA!");
+    return;
+  }
+
+  const gpa = (totalPoints / totalCredits).toFixed(2);
+
+  document.getElementById(semId + "_result").innerHTML = 
+    `📊 GPA: <span class="text-blue-600">${gpa}</span> | Credits: ${totalCredits}`;
+
+  // Update global data
+  const existing = semesters.find(s => s.id === semId);
+  if (existing) {
+    existing.name = name;
+    existing.gpa = parseFloat(gpa);
+    existing.credits = totalCredits;
+  } else {
+    semesters.push({ id: semId, name, gpa: parseFloat(gpa), credits: totalCredits });
+  }
+
+  updateCGPA();
+}
+
+// =============== DELETE SEMESTER ===============
+
+function deleteSemester(semId) {
+  // Remove from DOM
+  document.getElementById(semId + "_box")?.remove();
+
+  // Remove from global store
+  semesters = semesters.filter(s => s.id !== semId);
+
+  // Refresh CGPA
+  updateCGPA();
+}
+
+// =============== CGPA SECTION ===============
+
+function updateCGPA() {
+  const container = document.getElementById("cgpaSemesters");
+  container.innerHTML = "";
+
+  let totalCredits = 0, totalPoints = 0;
+
+  semesters.forEach(sem => {
+    const row = document.createElement("div");
+    row.className = "semester-row grid grid-cols-12 gap-2 p-3 rounded-xl bg-gray-50 dark:bg-gray-800/40";
+    row.innerHTML = `
+      <div class="col-span-6 font-medium">${sem.name}</div>
+      <div class="col-span-3 text-center credits">${sem.credits}</div>
+      <div class="col-span-3 text-center gpa">${Number(sem.gpa).toFixed(2)}</div>
+    `;
+    container.appendChild(row);
+
+    totalCredits += sem.credits;
+    totalPoints += sem.credits * sem.gpa;
+  });
+
+  localStorage.setItem("semesters", JSON.stringify(semesters));
+
+  if (totalCredits > 0) {
+    const cgpa = totalPoints / totalCredits;
+
+    // 🔥 Update CGPA Result
+    document.getElementById("cgpaResult").classList.remove("hidden");
+    document.getElementById("cgpaResult").innerHTML = `
+      <div class="p-4 bg-white/70 dark:bg-gray-800/70 rounded-xl shadow">
+        <p class="text-lg font-semibold">Your Cumulative CGPA:
+          <span class="text-blue-600 dark:text-green-400">${cgpa.toFixed(2)}</span>
+        </p>
+        <p class="text-sm text-gray-500">Based on ${totalCredits} total credits</p>
+      </div>
+    `;
+
+    // 🔥 Update Summary Card
+    document.getElementById("currentCgpa").textContent = cgpa.toFixed(2);
+    document.getElementById("currentGrade").textContent = getGrade(cgpa);
+  } else {
+    document.getElementById("cgpaResult").innerHTML = "";
+    document.getElementById("cgpaResult").classList.add("hidden");
+
+    document.getElementById("currentCgpa").textContent = "0.00";
+    document.getElementById("currentGrade").textContent = "-";
+  }
+}
+
+function getGrade(cgpa) {
+  if (cgpa >= 3.6) return "A";
+  if (cgpa >= 3.2) return "B+";
+  if (cgpa >= 2.8) return "B";
+  if (cgpa >= 2.4) return "C+";
+  if (cgpa >= 2.0) return "C";
+  if (cgpa >= 1.5) return "D";
+  return "F";
+}
+
+
+function calculateCGPA() {
+  const rows = document.querySelectorAll("#cgpaSemesters .semester-row");
+  let totalCredits = 0;
+  let totalPoints = 0;
+
+  rows.forEach(row => {
+    const credEl = row.querySelector(".credits");
+    const gpaEl  = row.querySelector(".gpa");
+
+    // Works whether values are in text or inputs
+    const credits = parseFloat(credEl?.innerText ?? credEl?.value ?? "0") || 0;
+    const gpa     = parseFloat(gpaEl?.innerText  ?? gpaEl?.value  ?? "0") || 0;
+
+    totalCredits += credits;
+    totalPoints  += credits * gpa;
+  });
+
+  const cgpa = totalCredits > 0 ? (totalPoints / totalCredits) : 0;
+
+  const resultBox = document.getElementById("cgpaResult");
+  resultBox.classList.remove("hidden");
+  resultBox.innerHTML = `
+    <div class="p-4 bg-white/70 dark:bg-gray-800/70 rounded-xl shadow">
+      <p class="text-lg font-semibold">Your Cumulative CGPA:
+        <span class="text-blue-600 dark:text-green-400">${cgpa.toFixed(2)}</span>
+      </p>
+      <p class="text-sm text-gray-500">Based on ${totalCredits} total credits</p>
+    </div>
+  `;
+
+  // Animate the progress circle (0–4 scale)
+  const progress = document.getElementById("planProgress");
+  const circle = document.getElementById("progressCircle");
+  const progressValue = document.getElementById("progressValue");
+  if (progress && circle && progressValue) {
+    progress.classList.remove("hidden");
+    const max = 4;
+    const percent = Math.min((cgpa / max) * 100, 100);
+    const dash = parseFloat(circle.getAttribute("stroke-dasharray")) || 465;
+    const offset = dash - (dash * percent) / 100;
+    circle.style.strokeDashoffset = offset;
+    progressValue.textContent = cgpa.toFixed(2);
+  }
+}
+
+// If your script is type="module", expose it:
+window.calculateCGPA = calculateCGPA;
+
+window.addEventListener("DOMContentLoaded", () => {
+  const saved = localStorage.getItem("semesters");
+  if (saved) {
+    semesters = JSON.parse(saved);
+
+    // Rebuild DOM semester rows
+    semesters.forEach(s => {
+      const container = document.getElementById("semesters");
+      const semDiv = document.createElement("div");
+      semDiv.className = "bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-md mb-6";
+      semDiv.id = s.id + "_box";
+
+      semDiv.innerHTML = `
+        <div class="flex justify-between items-center">
+          <h3 class="text-lg font-bold text-gray-700 dark:text-gray-200">
+            Semester: <input type="text" value="${s.name}" 
+              class="border rounded px-2 py-1" id="${s.id}_name">
+          </h3>
+          <button onclick="deleteSemester('${s.id}')" 
+            class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600">
+            ❌ Delete
+          </button>
+        </div>
+        <div id="${s.id}_courses" class="space-y-2 mt-3"></div>
+        <p id="${s.id}_result" class="mt-3 font-semibold text-gray-700 dark:text-gray-200">
+          📊 GPA: <span class="text-blue-600">${s.gpa.toFixed(2)}</span> | Credits: ${s.credits}
+        </p>
+      `;
+
+      container.appendChild(semDiv);
+    });
+
+    // Refresh CGPA UI
+    updateCGPA();
+  }
+});
+
+
+
+</script>
+
+
+<script>
+  let targetCgpa = null;
+  let plannedCourses = [];
+  
+  function setTargetCgpa() {
+    const val = parseFloat(document.getElementById("targetCgpaInput").value);
+    if (isNaN(val) || val < 0 || val > 4) {
+      alert("⚠️ Please enter a valid GPA between 0.00 and 4.00");
+      return;
+    }
+    targetCgpa = val;
+    document.getElementById("planResult").classList.remove("hidden");
+    document.getElementById("planResult").innerHTML = 
+      `<p class="font-medium">🎯 Target GPA set to: 
+        <span class="text-blue-600 dark:text-blue-400">${targetCgpa.toFixed(2)}</span></p>`;
+  }
+  
+  function addPlannedCourse() {
+    const row = document.createElement("div");
+    row.className = "flex flex-wrap gap-3 items-center bg-gray-50 dark:bg-slate-800 p-3 rounded-lg shadow";
+  
+    row.innerHTML = `
+      <input type="text" placeholder="Course Name" 
+             class="flex-1 p-2 rounded-lg border dark:bg-slate-700 dark:border-slate-600">
+      <input type="number" placeholder="Credits" min="1" 
+             class="w-24 p-2 rounded-lg border dark:bg-slate-700 dark:border-slate-600">
+      <select class="p-2 rounded-lg border dark:bg-slate-700 dark:border-slate-600">
+        <option value="">Select Grade</option>
+        <option value="A">A</option>
+        <option value="B+">B+</option>
+        <option value="B">B</option>
+        <option value="C+">C+</option>
+        <option value="C">C</option>
+        <option value="D">D</option>
+        <option value="E">E</option>
+        <option value="F">F</option>
+      </select>
+      <button onclick="removePlannedCourse(this)" 
+              class="px-2 py-1 bg-red-500 text-white rounded-lg hover:scale-105">✕</button>
+    `;
+  
+    document.getElementById("planCourses").appendChild(row);
+    plannedCourses.push(row);
+  }
+  
+  function removePlannedCourse(btn) {
+    btn.parentElement.remove();
+    plannedCourses = plannedCourses.filter(c => c !== btn.parentElement);
+    calculatePlannedCgpa();
+  }
+  
+  // GPA Mapping
+  function gradeToPoint(grade) {
+    switch (grade) {
+      case "A": return 4.0;
+      case "B+": return 3.5;
+      case "B": return 3.0;
+      case "C+": return 2.5;
+      case "C": return 2.0;
+      case "D": return 1.5;
+      case "E": return 1.0;
+      case "F": return 0.0;
+      default: return 0;
+    }
+  }
+  
+  function calculatePlannedCgpa() {
+    let totalPoints = 0, totalCredits = 0;
+    let details = [];
+  
+    plannedCourses.forEach(row => {
+      const inputs = row.querySelectorAll("input, select");
+      const courseName = inputs[0].value || "Unnamed Course";
+      const credits = parseFloat(inputs[1].value) || 0;
+      const grade = inputs[2].value;
+      const gradePoint = gradeToPoint(grade);
+  
+      totalPoints += credits * gradePoint;
+      totalCredits += credits;
+  
+      details.push({ courseName, credits, grade, gradePoint });
+    });
+  
+    if (totalCredits === 0) return;
+  
+    const gpa = totalPoints / totalCredits;
+    let msg = `📘 Calculated GPA: <span class="font-bold">${gpa.toFixed(2)}</span>`;
+  
+    if (targetCgpa) {
+      msg += `<br>🎯 Your Target GPA: 
+              <span class="font-bold text-blue-600 dark:text-blue-400">${targetCgpa.toFixed(2)}</span>`;
+  
+      if (gpa >= targetCgpa) {
+        msg += `<br>✅ Your plan meets or exceeds your target!`;
+      } else {
+        msg += `<br>⚠️ Your plan does not yet meet your target.<br>`;
+        msg += suggestImprovements(details, gpa);
+      }
+    }
+  
+    const result = document.getElementById("planResult");
+    result.innerHTML = msg;
+    result.classList.remove("hidden");
+  }
+  
+  function suggestImprovements(details, currentGpa) {
+    let suggestions = "<ul class='list-disc ml-5 mt-2'>";
+    details.forEach(d => {
+      if (d.gradePoint < 4.0) {
+        suggestions += `<li>Consider improving <b>${d.courseName}</b> 
+                        from <b>${d.grade}</b> to a higher grade 
+                        (e.g., A) to boost GPA.</li>`;
+      }
+    });
+    suggestions += "</ul>";
+  
+    if (suggestions === "<ul class='list-disc ml-5 mt-2'></ul>") {
+      return "👉 You may need to add more credit hours with higher grades to reach your target.";
+    }
+    return suggestions;
+  }
+  
+  // Auto-recalculate when inputs change
+  document.addEventListener("input", e => {
+    if (e.target.closest("#planCourses")) {
+      calculatePlannedCgpa();
+    }
+  });
+  </script>
+  
+
+
+
+
+    </main>
+  </div>
+</div>  
+
+  <!-- Styles -->
+  <style>
+    .glass-card { @apply bg-white/60 dark:bg-gray-800/50 backdrop-blur-xl p-8 rounded-2xl shadow-lg hover:shadow-xl transition; }
+    .card-title { @apply text-2xl font-bold mb-6 flex items-center gap-2 text-gray-800 dark:text-gray-100; }
+    .btn-blue { @apply bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-2 rounded-lg hover:from-blue-700 hover:to-indigo-700 transition font-semibold; }
+    .btn-green { @apply bg-gradient-to-r from-green-600 to-emerald-600 text-white px-4 py-2 rounded-lg hover:from-green-700 hover:to-emerald-700 transition font-semibold; }
+    .btn-gray { @apply bg-gray-200 dark:bg-gray-700 dark:text-gray-200 px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition; }
+    .nav-btn { @apply flex items-center gap-3 w-full text-left px-4 py-3 rounded-lg hover:bg-blue-600/30 dark:hover:bg-blue-800/50 transition font-medium; }
+
+    /* Rows (CGPA inputs) */
+    .row { @apply md:grid md:grid-cols-12 md:gap-2 flex flex-col md:flex-none border rounded-xl p-3 bg-white/60 dark:bg-gray-800/40; }
+
+    /* Chat bubbles */
+    .chat-bubble { @apply max-w-xs px-4 py-2 rounded-2xl shadow text-sm; }
+    .chat-bubble.other { @apply bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-tl-none; }
+    .chat-bubble.you { @apply bg-blue-600 text-white rounded-tr-none; }
+
+    /* Small stat cards */
+    .stat-card { @apply bg-white/60 dark:bg-gray-800/50 backdrop-blur-xl p-6 rounded-2xl shadow; }
+
+    .glass-card {
+      @apply bg-white/60 dark:bg-gray-800/50 backdrop-blur-xl p-8 rounded-2xl shadow-lg hover:shadow-xl transition;
+    }
+    .card-title {
+      @apply text-2xl font-bold mb-5 flex items-center gap-2 text-gray-800 dark:text-gray-100;
+    }
+    .nav-btn {
+      @apply flex items-center gap-3 w-full text-left px-4 py-3 rounded-lg hover:bg-blue-600/30 dark:hover:bg-blue-800/50 transition font-medium;
+    }
+    .nav-btn.active {
+      @apply bg-blue-600/40 dark:bg-blue-800/60 font-semibold shadow-inner;
+    }   
+    .nav-item {
+    @apply flex items-center gap-3 w-full px-4 py-2 text-sm font-medium rounded-lg 
+           hover:bg-blue-600/30 dark:hover:bg-blue-800/50 transition;
+  }
+  .nav-item.active {
+    @apply bg-blue-600/50 dark:bg-blue-800/60 shadow-inner text-white;
+  }
+
+  .input-field {
+    @apply w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 
+           bg-white/80 dark:bg-gray-800/70 text-gray-900 dark:text-gray-100 
+           focus:ring-2 focus:ring-blue-400 outline-none transition;
+  }
+  .btn-blue {
+    @apply flex items-center gap-2 px-5 py-2 rounded-lg bg-blue-600 text-white font-semibold 
+           hover:bg-blue-700 transition shadow;
+  }
+  .btn-green {
+    @apply flex items-center gap-2 px-5 py-2 rounded-lg bg-green-600 text-white font-semibold 
+           hover:bg-green-700 transition shadow;
+  }
+  .btn-gray {
+    @apply flex items-center gap-2 px-5 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 
+           text-gray-800 dark:text-gray-100 font-medium hover:bg-gray-300 
+           dark:hover:bg-gray-600 transition;
+  }
+  .grade-badge {
+    @apply px-2 py-1 rounded-full text-xs font-bold;
+  }
+  .grade-A { @apply bg-green-500 text-white; }
+  .grade-B { @apply bg-blue-500 text-white; }
+  .grade-C { @apply bg-yellow-400 text-gray-900; }
+  .grade-D { @apply bg-orange-500 text-white; }
+  .grade-E { @apply bg-purple-500 text-white; }
+  .grade-F { @apply bg-red-600 text-white; }
+
+  .input-field {
+      @apply w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 
+             bg-white/80 dark:bg-gray-800/70 text-gray-900 dark:text-gray-100 
+             focus:ring-2 focus:ring-blue-400 outline-none transition;
+    }
+    .btn-blue {
+      @apply flex items-center justify-center gap-2 px-5 py-2 rounded-lg 
+             bg-blue-600 text-white font-semibold hover:bg-blue-700 transition shadow;
+    }
+  </style>
+
+<script>
+
+  //ends here
+  
+  // ===================== NAVIGATION / THEME =====================
+  function showSection(id) {
+    document.querySelectorAll("main section").forEach(sec => sec.classList.add("hidden"));
+    document.getElementById(id).classList.remove("hidden");
+    document.querySelectorAll(".nav-btn").forEach(btn => btn.classList.remove("active"));
+    const navBtn = document.getElementById("nav-" + id);
+    if (navBtn) navBtn.classList.add("active");
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  
+  function toggleDarkMode() {
+    document.documentElement.classList.toggle('dark');
+    const isDark = document.documentElement.classList.contains('dark');
+    document.getElementById("darkModeIcon").className = isDark ? "ph ph-sun" : "ph ph-moon";
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+  }
+  if (localStorage.getItem("theme") === "dark") {
+    document.documentElement.classList.add("dark");
+  }
+  
+  // ===================== CHAT =====================
+  function sendMessage() {
+    const input = document.getElementById("chatInput");
+    const msg = input.value.trim();
+    if (!msg) return;
+  
+    const chatBox = document.getElementById("chatBox");
+    const div = document.createElement("div");
+    div.className = "flex items-start space-x-2";
+    div.innerHTML = `
+      <div class="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center text-xs font-bold">U</div>
+      <div>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mb-1">You</p>
+        <div class="chat-bubble self">${msg}</div>
+        <span class="text-[10px] text-gray-400">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+      </div>`;
+    chatBox.appendChild(div);
+    chatBox.scrollTop = chatBox.scrollHeight;
+    input.value = "";
+  }
+  
+  function shareFile(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const chatBox = document.getElementById("chatBox");
+    const div = document.createElement("div");
+    div.className = "flex items-start space-x-2";
+    div.innerHTML = `
+      <div class="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center text-xs font-bold">U</div>
+      <div>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mb-1">You</p>
+        <div class="chat-bubble self">📎 Shared File: <b>${file.name}</b></div>
+        <span class="text-[10px] text-gray-400">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+      </div>`;
+    chatBox.appendChild(div);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+
+  // ===================== INIT =====================
+  document.addEventListener("DOMContentLoaded", () => {
+    clearCourses();
+    addPlanCourse({ name: "Operating Systems", credits: 3 });
+    addPlanCourse({ name: "Databases", credits: 3 });
+    addPlanCourse({ name: "Algorithms", credits: 4 });
+    showSection("dashboardPage");
+  });
+  </script>
+  
+</body>
+</html>
